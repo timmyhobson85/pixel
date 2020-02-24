@@ -18,17 +18,25 @@ class PixelGrid extends React.Component {
       row: 6,
       col: 6,
       color: "#000000",
-      mouseDown: false
+      mouseDown: false,
+      firstDraw: true,
     }
 
     componentDidMount() {
+      this.testFirebaseListen()
+    }
+    componentDidUpdate() {
+    }
+
+    componentWillUnmount(){
+
     }
 
     handleChange = (e) => {
       this.setState({ [e.target.name] : e.target.value })
     }
 
-    handleChangeselect = (e) => {
+    handleChangeSelect = (e) => {
       console.log(this.state.row, this.state.col);
       this.setState({ [e.target.name] : e.target.value })
       let image = []
@@ -58,8 +66,8 @@ class PixelGrid extends React.Component {
 
     paintClick = (r, c) => {
       // if (document.body.onmousedown) {
-        console.log(r, c);
-        console.log(this.state.image[r][c])
+        // console.log(r, c);
+        // console.log(this.state.image[r][c])
         // this is a shallow copy - use deep copy with lodash
         // let newImage = [...this.state.image];
         let newImage = cloneDeep(this.state.image);
@@ -69,6 +77,7 @@ class PixelGrid extends React.Component {
           image: newImage
         })
       // }
+      this.firebaseSet( r, c )
       // this.setState({ image[r][c] : '#FFFFFF' })
     }
 
@@ -124,18 +133,41 @@ class PixelGrid extends React.Component {
       console.log(test);
     };
 
-    testFirebaseSet = () => {
+    firebaseSet = (r, c) => {
       firebase.database().ref('/lastDraw').set({
-        lastDraw: '#000000'
+        row: r,
+        col: c,
+        color: this.state.color
       });
     }
 
     testFirebaseListen = () => {
       let listen = firebase.database().ref('/lastDraw');
-      listen.on('value', function (snapshot) {
-        console.log(snapshot.val());
+      listen.on('value', (snapshot) => {
+        let data = snapshot.val()
+        // console.log('firebaseListen', data.row, data.col);
+        console.log(data);
+        if (this.state.firstDraw === false) {
+          this.firebasePaint( data.row, data.col, data.color )
+        }
+        console.log('first message');
+        this.setState({ firstDraw: false })
       })
     }
+
+    firebasePaint = ( r, c, color ) => {
+      let newImage = cloneDeep(this.state.image);
+      newImage[r].splice(c, 1, color )
+      this.setState({
+        image: newImage
+      })
+    }
+
+
+    // click and drag draw handlers
+    // onMouseDown={() => this.setMouseDown(i, j)}
+    // onMouseOver={() => this.paintMouseOver(i, j)}
+    // onMouseUp={this.setMouseUp}
 
 
 
@@ -145,13 +177,13 @@ class PixelGrid extends React.Component {
         <div className='App'>
           <h2>PixelCanvas02</h2>
           <button onClick={this.testFirebase}>test firebase</button> <br/>
-          <button onClick={this.testFirebaseSet}>testFirebaseSet</button> <br/>
+          <button onClick={this.firebaseSet}>firebaseSet</button> <br/>
           <button onClick={this.testFirebaseListen}>testFirebaseListen</button> <br/>
           <h4>testinput</h4>
           <label>row</label>
-          <input type="number" min="1" max="100" name="row" defaultValue={this.state.row} onChange={this.handleChangeselect}/>
+          <input type="number" min="1" max="100" name="row" defaultValue={this.state.row} onChange={this.handleChangeSelect}/>
           <label>col</label>
-          <input type="number" min="1" max="100" name="col" defaultValue={this.state.col} onChange={this.handleChangeselect}/>
+          <input type="number" min="1" max="100" name="col" defaultValue={this.state.col} onChange={this.handleChangeSelect}/>
           <h4>endtestinput</h4>
           <label> row </label>
           <input type="text" name="row" onChange={this.handleChange} /> <br/>
@@ -179,9 +211,7 @@ class PixelGrid extends React.Component {
                       width: `${100 / image[i].length}%`,
                       paddingBottom: `${100 / image[i].length}%`
                     }}
-                    onMouseDown={() => this.setMouseDown(i, j)}
-                    onMouseOver={() => this.paintMouseOver(i, j)}
-                    onMouseUp={this.setMouseUp}
+                    onClick={() => this.paintClick(i, j)}
                     />)
                   )
                 }
