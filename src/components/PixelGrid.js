@@ -1,7 +1,7 @@
 import React from 'react'
 import './PixelGrid.css';
 import { cloneDeep } from 'lodash'
-// import cloneDeep from ‘lodash/cloneDeep’;
+import ColorPicker from './ColorPicker'
 
 
 class PixelGrid extends React.Component {
@@ -14,8 +14,8 @@ class PixelGrid extends React.Component {
         [ '#000000', '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#000000'  ],
         [ '#000000', '#000000', '#000000', '#000000', '#000000', '#000000'  ],
       ],
-      row: 5,
-      col: 5,
+      row: 6,
+      col: 6,
       color: "#000000",
       mouseDown: false
     }
@@ -170,6 +170,7 @@ class PixelGrid extends React.Component {
           <button onClick={this.setColor} value="black">black</button>
           <button onClick={this.setColor} value="blue">blue</button>
           <button onClick={this.setEraser} value='rgb(70, 70, 70)'>eraser</button>
+          <ColorPicker />
           <br/>
         </div>
       )
