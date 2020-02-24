@@ -9,12 +9,13 @@ import PixelGrid from './components/PixelGrid'
 
 
 function App() {
+
   return (
     <div className="App">
     pixel
     <PixelGrid />
     </div>
   );
-}
+};
 
 export default App;

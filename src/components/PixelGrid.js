@@ -2,6 +2,7 @@ import React from 'react'
 import './PixelGrid.css';
 import { cloneDeep } from 'lodash'
 import ColorPicker from './ColorPicker'
+import firebase from '../firebase.js'
 
 
 class PixelGrid extends React.Component {
@@ -110,10 +111,30 @@ class PixelGrid extends React.Component {
       })
       console.log('down');
       this.setState({ mouseDown: true})
-    }
+    };
     setMouseUp = () => {
       console.log('up');
       this.setState({ mouseDown: false})
+    };
+
+    testFirebase = () => {
+      let test = firebase.database().ref('/lastDraw').once('value')
+        .then( data => console.log('data', data.val()  ) );
+
+      console.log(test);
+    };
+
+    testFirebaseSet = () => {
+      firebase.database().ref('/lastDraw').set({
+        lastDraw: '#000000'
+      });
+    }
+
+    testFirebaseListen = () => {
+      let listen = firebase.database().ref('/lastDraw');
+      listen.on('value', function (snapshot) {
+        console.log(snapshot.val());
+      })
     }
 
 
@@ -123,6 +144,9 @@ class PixelGrid extends React.Component {
       return(
         <div className='App'>
           <h2>PixelCanvas02</h2>
+          <button onClick={this.testFirebase}>test firebase</button> <br/>
+          <button onClick={this.testFirebaseSet}>testFirebaseSet</button> <br/>
+          <button onClick={this.testFirebaseListen}>testFirebaseListen</button> <br/>
           <h4>testinput</h4>
           <label>row</label>
           <input type="number" min="1" max="100" name="row" defaultValue={this.state.row} onChange={this.handleChangeselect}/>
