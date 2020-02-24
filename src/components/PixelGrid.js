@@ -58,6 +58,7 @@ class PixelGrid extends React.Component {
         image[i] = []
         for (var j = 0; j < this.state.col; j++) {
           image[i][j] =  null
+          // this.firebaseSetPixel( i, j ) // this was to seed grid
         }
       }
       this.setState({ image })
@@ -78,6 +79,7 @@ class PixelGrid extends React.Component {
         })
       // }
       this.firebaseSet( r, c )
+      this.firebaseSetPixel( r, c )
       // this.setState({ image[r][c] : '#FFFFFF' })
     }
 
@@ -85,6 +87,7 @@ class PixelGrid extends React.Component {
       if (this.state.mouseDown) {
         console.log(this.state.mouseDown);
         console.log(r, c);
+        this.firebaseSet( r, c, this.state.color)
         // console.log(this.state.image[r][c])
         // this is a shallow copy - use deep copy with lodash
         // let newImage = this.state.image
@@ -141,17 +144,24 @@ class PixelGrid extends React.Component {
       });
     }
 
+    firebaseSetPixel = (r, c) => {
+      firebase.database().ref(`/grid/${r}${c}`).set({
+        // row: r,
+        // col: c,
+        color: this.state.color
+      });
+    }
+
     testFirebaseListen = () => {
-      let listen = firebase.database().ref('/lastDraw');
+      let listen = firebase.database().ref('/grid');
       listen.on('value', (snapshot) => {
         let data = snapshot.val()
-        // console.log('firebaseListen', data.row, data.col);
         console.log(data);
-        if (this.state.firstDraw === false) {
-          this.firebasePaint( data.row, data.col, data.color )
-        }
-        console.log('first message');
-        this.setState({ firstDraw: false })
+        // if (this.state.firstDraw === false) {
+        //   this.firebasePaint( data.row, data.col, data.color )
+        // }
+        // console.log('first message');
+        // this.setState({ firstDraw: false })
       })
     }
 
@@ -176,6 +186,35 @@ class PixelGrid extends React.Component {
       return(
         <div className='App'>
           <h2>PixelCanvas02</h2>
+          <div
+            className="pixelGrid"
+            onMouseLeave={this.setMouseUp}
+            >
+            {
+              image.map((row, i) => (
+                <div
+                  className="row"
+                  style={{
+                    height: `${100 / image[i].length}%`
+                  }}
+                  >
+                  {
+                    row.map( (color, j ) => (
+                      <div
+                        className="pixel"
+                        style={{
+                          backgroundColor: image[i][j] || 'rgb(70, 70, 70)',
+                          width: `${100 / image[i].length}%`,
+                          paddingBottom: `${100 / image[i].length}%`
+                        }}
+                        onClick={() => this.paintClick(i, j)}
+                        />)
+                      )
+                    }
+                  </div>
+                ))
+              }
+            </div>
           <button onClick={this.testFirebase}>test firebase</button> <br/>
           <button onClick={this.firebaseSet}>firebaseSet</button> <br/>
           <button onClick={this.testFirebaseListen}>testFirebaseListen</button> <br/>
@@ -190,35 +229,6 @@ class PixelGrid extends React.Component {
           <label> col </label>
           <input type="text" name="col" onChange={this.handleChange} /> <br/>
           <button onClick={this.createGrid}>click</button> <br/>
-          <div
-          className="pixelGrid"
-          onMouseLeave={this.setMouseUp}
-          >
-          {
-            image.map((row, i) => (
-              <div
-              className="row"
-              style={{
-                height: `${100 / image[i].length}%`
-              }}
-              >
-                {
-                  row.map( (color, j ) => (
-                    <div
-                    className="pixel"
-                    style={{
-                      backgroundColor: image[i][j] || 'rgb(70, 70, 70)',
-                      width: `${100 / image[i].length}%`,
-                      paddingBottom: `${100 / image[i].length}%`
-                    }}
-                    onClick={() => this.paintClick(i, j)}
-                    />)
-                  )
-                }
-              </div>
-            ))
-          }
-          </div>
           <br/>
           <button onClick={this.setColor} value="red">red</button>
           <button onClick={this.setColor} value="black">black</button>

@@ -6,6 +6,7 @@ import {
   HashRouter as Router
 } from 'react-router-dom'
 import PixelGrid from './components/PixelGrid'
+import Chat from './components/Chat'
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
     pixel
     <PixelGrid />
+    <Chat />
     </div>
   );
 };
