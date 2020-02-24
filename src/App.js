@@ -1,11 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {
+  Route,
+  Link,
+  HashRouter as Router
+} from 'react-router-dom'
+import PixelGrid from './components/PixelGrid'
+
 
 function App() {
   return (
     <div className="App">
-    Pixel
+    pixel
+    <PixelGrid />
     </div>
   );
 }
