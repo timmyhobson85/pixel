@@ -185,6 +185,16 @@ class PixelGrid extends React.Component {
       })
     }
 
+    getPhotoFromFirebase = () => {
+      console.log('hello');
+      firebase.database().ref('/grid').once('value')
+        .then(function(pixels) {
+          pixels.forEach( pixel => {
+            console.log(pixel);
+          })
+        })
+    }
+
 
     // click and drag draw handlers
     // onMouseDown={() => this.setMouseDown(i, j)}
@@ -230,6 +240,7 @@ class PixelGrid extends React.Component {
           <button onClick={this.testFirebase}>test firebase</button> <br/>
           <button onClick={this.firebaseSet}>firebaseSet</button> <br/>
           <button onClick={this.testFirebaseListen}>testFirebaseListen</button> <br/>
+          <button onClick={this.getPhotoFromFirebase}>getPhotoFromFirebase</button> <br/>
           <h4>testinput</h4>
           <label>row</label>
           <input type="number" min="1" max="100" name="row" defaultValue={this.state.row} onChange={this.handleChangeSelect}/>
