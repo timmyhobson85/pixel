@@ -169,12 +169,12 @@ class PixelGrid extends React.Component {
     }
 
     firebaseGridListen = () => {
-      let listen = firebase.database().ref('/grid');
-      listen.on('value', (snapshot) => {
-        let data = snapshot.val()
-        // console.log('firebaseListen', data.row, data.col);
-        console.log(data);
-      })
+      // let listen = firebase.database().ref('/grid');
+      // listen.on('value', (snapshot) => {
+      //   let data = snapshot.val()
+      //   // console.log('firebaseListen', data.row, data.col);
+      //   console.log(data);
+      // })
     }
 
     firebasePaint = ( r, c, color ) => {
@@ -188,13 +188,34 @@ class PixelGrid extends React.Component {
     getPhotoFromFirebase = () => {
       console.log('hello');
       firebase.database().ref('/grid').once('value')
-        .then(function(pixels) {
-          pixels.forEach( pixel => {
-            console.log(pixel);
-          })
-        })
+      // .then((pixels) => console.log(pixels.val()))
+        .then((pixels) => {
+          // console.log('then');
+          const pix = Object.values( pixels.val() );
+          const output = Array(40).fill(null).map( el => new Array(100) );
+          let rows = 40; let cols = 100;
+          // console.log('pix', pix.length);
+          for(let i = 0; i < pix.length; i++){
+            const {row, col, color} = pix[i];
+            // if( row < rows && col < cols ){
+              output[col][row] = color;
+            // }
+             // const row = Math.floor(i/cols);
+             // const col = i % cols;
+          }
+          // console.log( output );
+          this.setState({ image: output });
+          // pixels.forEach( pixel => {
+          //   let p = pixel.val();
+          //   console.log(p);
+          //   // this.firebasePaint( p.col, p.row, p.color )
+          // })
+        });
     }
 
+    firebaseEmptyGrid = () => {
+      firebase.database().ref('/grid').remove()
+    }
 
     // click and drag draw handlers
     // onMouseDown={() => this.setMouseDown(i, j)}
@@ -230,6 +251,10 @@ class PixelGrid extends React.Component {
                           paddingBottom: `${100 / image[i].length}%`
                         }}
                         onClick={() => this.paintClick(i, j)}
+                        onMouseDown={() => this.setMouseDown(i, j)}
+                        onMouseOver={() => this.paintMouseOver(i, j)}
+                        onMouseUp={this.setMouseUp}
+
                         />)
                       )
                     }
@@ -238,6 +263,7 @@ class PixelGrid extends React.Component {
               }
             </div>
           <button onClick={this.testFirebase}>test firebase</button> <br/>
+          <button onClick={this.firebaseEmptyGrid}>emptygrid</button> <br/>
           <button onClick={this.firebaseSet}>firebaseSet</button> <br/>
           <button onClick={this.testFirebaseListen}>testFirebaseListen</button> <br/>
           <button onClick={this.getPhotoFromFirebase}>getPhotoFromFirebase</button> <br/>

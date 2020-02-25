@@ -67,7 +67,7 @@ class WebcamPage extends React.Component {
     ctx.drawImage(img1, 0, 0);
 
     var pixelArr = ctx.getImageData(0, 0, w, h).data;
-    let sample_size = 10;
+    let sample_size = 1;
 
     for (let y = 0; y < h; y += sample_size) {
       for (let x = 0; x < w; x += sample_size) {
@@ -104,7 +104,7 @@ class WebcamPage extends React.Component {
 
   firebaseSetPixel = (r, c, color) => {
     console.log('sending to firebase');
-    firebase.database().ref(`/grid/${r}${c}`).set({
+    firebase.database().ref(`/grid/${r}-${c}`).set({
       row: r,
       col: c,
       color: color
@@ -114,8 +114,8 @@ class WebcamPage extends React.Component {
 
   render() {
     const videoConstraints = {
-      width: 1000,
-      height: 400,
+      width: 100,
+      height: 40,
       facingMode: "user"
     };
 
@@ -135,10 +135,10 @@ class WebcamPage extends React.Component {
           <div>
           <Webcam
             audio={false}
-            height={400}
+            height={40}
             ref={this.setRef}
             screenshotFormat="image/jpeg"
-            width={1000}
+            width={100}
             videoConstraints={videoConstraints}
           />
           <br/>
