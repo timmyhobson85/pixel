@@ -221,6 +221,11 @@ class PixelGrid extends React.Component {
       console.log(this.state.image);
     }
 
+    colorPickerData = ( data ) => {
+      this.setState({ color : data})
+      console.log('colorPickerData');
+    }
+
     // click and drag draw handlers
     // onMouseDown={() => this.setMouseDown(i, j)}
     // onMouseOver={() => this.paintMouseOver(i, j)}
@@ -266,6 +271,10 @@ class PixelGrid extends React.Component {
                 ))
               }
             </div>
+            <ColorPicker
+              color={this.state.color}
+              sendColorData={this.colorPickerData}
+              />
           <button onClick={this.testFirebase}>test firebase</button> <br/>
           <button onClick={this.consoleLogState}>consoleLogState</button> <br/>
           <button onClick={this.firebaseEmptyGrid}>emptygrid</button> <br/>
@@ -284,11 +293,7 @@ class PixelGrid extends React.Component {
           <input type="text" name="col" onChange={this.handleChange} /> <br/>
           <button onClick={this.createGrid}>click</button> <br/>
           <br/>
-          <button onClick={this.setColor} value="red">red</button>
-          <button onClick={this.setColor} value="black">black</button>
-          <button onClick={this.setColor} value="blue">blue</button>
           <button onClick={this.setEraser} value='rgb(70, 70, 70)'>eraser</button>
-          <ColorPicker />
           <br/>
         </div>
       )
