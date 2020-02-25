@@ -15,8 +15,8 @@ class PixelGrid extends React.Component {
         [ '#000000', '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#000000'  ],
         [ '#000000', '#000000', '#000000', '#000000', '#000000', '#000000'  ],
       ],
-      row: 6,
-      col: 6,
+      row: 40,
+      col: 100,
       color: "#000000",
       mouseDown: false,
       firstDraw: true,
@@ -24,6 +24,8 @@ class PixelGrid extends React.Component {
 
     componentDidMount() {
       this.testFirebaseListen()
+      this.firebaseGridListen()
+      this.createGrid()
     }
     componentDidUpdate() {
     }
@@ -79,7 +81,7 @@ class PixelGrid extends React.Component {
         })
       // }
       this.firebaseSet( r, c )
-      this.firebaseSetPixel( r, c )
+      // this.firebaseSetPixel( r, c )
       // this.setState({ image[r][c] : '#FFFFFF' })
     }
 
@@ -146,22 +148,32 @@ class PixelGrid extends React.Component {
 
     firebaseSetPixel = (r, c) => {
       firebase.database().ref(`/grid/${r}${c}`).set({
-        // row: r,
-        // col: c,
+        row: r,
+        col: c,
         color: this.state.color
       });
     }
 
     testFirebaseListen = () => {
+      let listen = firebase.database().ref('/lastDraw');
+      listen.on('value', (snapshot) => {
+        let data = snapshot.val()
+        // console.log('firebaseListen', data.row, data.col);
+        console.log(data);
+        if (this.state.firstDraw === false) {
+          this.firebasePaint( data.row, data.col, data.color )
+        }
+        console.log('first message');
+        this.setState({ firstDraw: false })
+      })
+    }
+
+    firebaseGridListen = () => {
       let listen = firebase.database().ref('/grid');
       listen.on('value', (snapshot) => {
         let data = snapshot.val()
+        // console.log('firebaseListen', data.row, data.col);
         console.log(data);
-        // if (this.state.firstDraw === false) {
-        //   this.firebasePaint( data.row, data.col, data.color )
-        // }
-        // console.log('first message');
-        // this.setState({ firstDraw: false })
       })
     }
 
