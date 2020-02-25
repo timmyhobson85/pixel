@@ -74,7 +74,7 @@ class PixelGrid extends React.Component {
         // this is a shallow copy - use deep copy with lodash
         // let newImage = [...this.state.image];
         let newImage = cloneDeep(this.state.image);
-        console.log(newImage);
+        // console.log(newImage);
         newImage[r].splice(c, 1, this.state.color )
         this.setState({
           image: newImage
@@ -95,7 +95,7 @@ class PixelGrid extends React.Component {
         // let newImage = this.state.image
         // let newImage = [...this.state.image];
         let newImage = cloneDeep(this.state.image);
-        console.log(newImage);
+        // console.log(newImage);
         newImage[r].splice(c, 1, this.state.color)
         this.setState({
           image: newImage
@@ -217,6 +217,10 @@ class PixelGrid extends React.Component {
       firebase.database().ref('/grid').remove()
     }
 
+    consoleLogState = () => {
+      console.log(this.state.image);
+    }
+
     // click and drag draw handlers
     // onMouseDown={() => this.setMouseDown(i, j)}
     // onMouseOver={() => this.paintMouseOver(i, j)}
@@ -263,6 +267,7 @@ class PixelGrid extends React.Component {
               }
             </div>
           <button onClick={this.testFirebase}>test firebase</button> <br/>
+          <button onClick={this.consoleLogState}>consoleLogState</button> <br/>
           <button onClick={this.firebaseEmptyGrid}>emptygrid</button> <br/>
           <button onClick={this.firebaseSet}>firebaseSet</button> <br/>
           <button onClick={this.testFirebaseListen}>testFirebaseListen</button> <br/>

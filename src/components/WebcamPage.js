@@ -51,6 +51,7 @@ class WebcamPage extends React.Component {
   // }
 
   pixelate = () => {
+    firebase.database().ref('/grid').remove()
     let c = this.refs.canvas
     let ctx = c.getContext("2d")
     let img1 = this.refs.webcamImage
@@ -121,9 +122,7 @@ class WebcamPage extends React.Component {
 
     return (
       <div>
-        <h2>image below</h2>
-        <canvas ref="canvas" width={640} height={425} />
-        <img ref="webcamImage" src={this.state.image} />
+        <h2>take a photo</h2>
         {
           this.state.image ?
           <div>
@@ -135,17 +134,21 @@ class WebcamPage extends React.Component {
           <div>
           <Webcam
             audio={false}
-            height={40}
+            height={400}
             ref={this.setRef}
             screenshotFormat="image/jpeg"
-            width={100}
+            width={1000}
             videoConstraints={videoConstraints}
+            minScreenshotHeight={40}
+            minScreenshotWidth={100}
           />
           <br/>
           <button onClick={this.capture}>Capture photo</button>
           <br/>
           </div>
         }
+        <canvas ref="canvas" width={100} height={40} />
+        <img ref="webcamImage" src={this.state.image} className="hidden"/>
       </div>
     );
   }
