@@ -1,6 +1,7 @@
 import React from 'react'
 import Webcam from 'react-webcam'
 import firebase from '../firebase.js'
+import './WebcamPage.css'
 
 
 class WebcamPage extends React.Component {
@@ -28,28 +29,6 @@ class WebcamPage extends React.Component {
   componentDidMount = () => {
   }
 
-  // pixelate = () => {
-  //   var imgData = this.getImageData(0,0,w,h).data
-  //   var img = new Image();
-  //   img.src = this.state.image
-  //   let sample_size = 10
-  //   ctx.drawImage(img, 0, 0, w, h);
-  //   // loop through the rows from top to bottom
-  //   for (var y = 0; y < h; y+= sample_size) {
-  //     // loop through all the colomns from left to right
-  //     for (var x = 0; x < w; x+= sample_size) {
-  //       // do something
-  //       var pos = ( x + y * w ) * 4;
-  //       var red = sample[pos];
-  //       var green = sample[pos+1];
-  //       var blue = sample[pos+2];
-  //
-  //       ctx.fillStyle = rgb(red, green, blue)
-  //       ctx.fillRect = ( x, y, sample_size, sample_size )
-  //     }
-  //   }
-  // }
-
   pixelate = () => {
     firebase.database().ref('/grid').remove()
     let c = this.refs.canvas
@@ -60,7 +39,6 @@ class WebcamPage extends React.Component {
     console.log('img1', img1);
 
     let w = img1.width;
-    // console.log(w);
     let h = img1.height;
 
     c.width = w;
@@ -80,27 +58,6 @@ class WebcamPage extends React.Component {
 
       }
     }
-    // for (let y = 0; y < h; y += sample_size) {
-    //   for (let x = 0; x < w; x += sample_size) {
-    //     let p = (x + y * w) * 4;
-    //     ctx.fillStyle = "rgba(" + pixelArr[p] + "," + pixelArr[p + 1] + "," + pixelArr[p + 2] + "," + pixelArr[p + 3] + ")";
-    //     console.log(y, x, ctx.fillStyle)
-    //     // let pos = (x + y * w) * 4;
-    //     // let red   = pixelArr[pos];
-    //     // let green = pixelArr[pos + 1];
-    //     // let blue  = pixelArr[pos + 2];
-    //     // ctx.fillStyle = `rgb(${red}, ${blue}, ${green})`;
-    //     // ctx.fillRect(x, y, sample_size, sample_size);
-    //     // console.log('1');
-    //   }
-    // } // why doesn't color work?!
-  //
-  //   let img2 = new Image();
-  //   img2.src = c.toDataURL("image/jpeg");
-  //   img2.width = 800;
-  //   document.body.appendChild(img2);
-  // };
-  // img1.src = document.getElementById("image1").src;
   }
 
   firebaseSetPixel = (r, c, color) => {
@@ -123,6 +80,7 @@ class WebcamPage extends React.Component {
     return (
       <div>
         <h2>take a photo</h2>
+        <div>
         {
           this.state.image ?
           <div>
@@ -149,7 +107,9 @@ class WebcamPage extends React.Component {
         }
         <canvas ref="canvas" width={100} height={40} />
         <img ref="webcamImage" src={this.state.image} className="hidden"/>
+        </div>
       </div>
+
     );
   }
 } // Class

@@ -39,12 +39,6 @@ class ColorPicker extends React.Component {
             'pick a color'
           }
         </button>
-        <div
-          id="currentColor"
-          style={{
-            backgroundColor: `${this.state.color}`
-          }}
-          />
         {
           this.state.displayColorPicker ?
           <SketchPicker
@@ -55,7 +49,7 @@ class ColorPicker extends React.Component {
             onMouseLeave={this.showColorPicker}
           />
           :
-          <p>no</p>
+          ''
         }
       </div>
     )

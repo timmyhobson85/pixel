@@ -28,3 +28,8 @@ html {
 #testCanvas {
   border: 1px solid red;
 }
+
+body {
+  background-color: rgb(99, 99, 99);
+  color: rgb(247, 247, 247);
+}

@@ -16,7 +16,6 @@ function App() {
 
   return (
     <div className="App">
-    pixel
     <Router>
     <nav>
       <Link to="/">Home</Link> |&nbsp;
