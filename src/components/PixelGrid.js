@@ -14,6 +14,7 @@ class PixelGrid extends React.Component {
     color: "#000000",
     mouseDown: false,
     firstDraw: true,
+    eyeDropperActive: false,
   };
 
   componentDidMount() {
@@ -22,7 +23,20 @@ class PixelGrid extends React.Component {
     this.getPhotoFromFirebase();
   };
 
-  paintClick = (r, c) => {
+  activateEyeDropper = () => {
+    this.setState({
+      eyeDropperActive: true
+    });
+  };
+
+  paintClick = (r, c, event) => {
+    if (this.state.eyeDropperActive) {
+      console.log(event.target.style.backgroundColor);
+      this.setState({
+        color: event.target.style.backgroundColor,
+        eyeDropperActive: false
+      });
+    } else {
     // let newImage = [...this.state.image]; // this is a shallow copy - use deep copy with lodash
     let newImage = cloneDeep(this.state.image);
     newImage[r].splice(c, 1, this.state.color );
@@ -31,6 +45,7 @@ class PixelGrid extends React.Component {
     });
     this.firebaseSetLastDraw( r, c );
     this.firebaseSetPixel( r, c );
+    }
   };
 
   paintMouseOver = (r, c) => {
@@ -167,9 +182,7 @@ class PixelGrid extends React.Component {
                       width: `${100 / image[i].length}%`,
                       paddingBottom: `${100 / image[i].length}%`
                     }}
-                    onClick={() => this.paintClick(i, j)}
-                    onMouseDown={() => this.setMouseDown(i, j)}
-                    onMouseOver={() => this.paintMouseOver(i, j)}
+                    onClick={(e) => this.paintClick(i, j, e)}
                     onMouseUp={this.setMouseUp}
                     />)
                   )
@@ -181,10 +194,11 @@ class PixelGrid extends React.Component {
           :
           <p>loading...</p>
         }
-          <ColorPicker
-            color={this.state.color}
-            sendColorData={this.colorPickerData}
-          />
+        <ColorPicker
+          color={this.state.color}
+          sendColorData={this.colorPickerData}
+        />
+      <button onClick={this.activateEyeDropper}>eyedropper</button>
         <br/>
         <br/>
       </div>

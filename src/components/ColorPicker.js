@@ -28,7 +28,7 @@ class ColorPicker extends React.Component {
         <button
           id="colorPickerButton"
           style={{
-            backgroundColor:`${this.state.color}`
+            backgroundColor:`${this.props.color}`
           }}
           onClick={this.showColorPicker}
           >
