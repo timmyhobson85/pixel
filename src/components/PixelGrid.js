@@ -3,6 +3,7 @@ import './PixelGrid.css';
 import { cloneDeep } from 'lodash'
 import ColorPicker from './ColorPicker'
 import firebase from '../firebase.js'
+import WebcamPage from './WebcamPage'
 
 
 class PixelGrid extends React.Component {
@@ -13,50 +14,50 @@ class PixelGrid extends React.Component {
     color: "#000000",
     mouseDown: false,
     firstDraw: true,
-  }
+  };
 
   componentDidMount() {
-    this.firebaseLastDrawListen()
+    this.firebaseLastDrawListen();
     // this.firebaseGridListen()
-    this.getPhotoFromFirebase()
-  }
+    this.getPhotoFromFirebase();
+  };
 
   paintClick = (r, c) => {
     // let newImage = [...this.state.image]; // this is a shallow copy - use deep copy with lodash
     let newImage = cloneDeep(this.state.image);
-    newImage[r].splice(c, 1, this.state.color )
+    newImage[r].splice(c, 1, this.state.color );
     this.setState({
       image: newImage
-    })
-    this.firebaseSetLastDraw( r, c )
-    this.firebaseSetPixel( r, c )
-  }
+    });
+    this.firebaseSetLastDraw( r, c );
+    this.firebaseSetPixel( r, c );
+  };
 
   paintMouseOver = (r, c) => {
     if (this.state.mouseDown) {
-      this.firebaseSetLastDraw( r, c, this.state.color)
+      this.firebaseSetLastDraw( r, c, this.state.color);
       this.firebaseSetPixel( r, c )
       let newImage = cloneDeep(this.state.image);
-      newImage[r].splice(c, 1, this.state.color)
+      newImage[r].splice(c, 1, this.state.color);
       this.setState({
         image: newImage
-      })
-    }
-  }
+      });
+    };
+  };
 
   setMouseDown = (r, c) => {
     let newImage = cloneDeep(this.state.image);
-    newImage[r].splice(c, 1, this.state.color )
-    this.firebaseSetLastDraw( r, c, this.state.color)
-    this.firebaseSetPixel( r, c )
+    newImage[r].splice(c, 1, this.state.color );
+    this.firebaseSetLastDraw( r, c, this.state.color);
+    this.firebaseSetPixel( r, c );
     this.setState({
       image: newImage
-    })
-    this.setState({ mouseDown: true})
+    });
+    this.setState({ mouseDown: true});
   };
 
   setMouseUp = () => {
-    this.setState({ mouseDown: false})
+    this.setState({ mouseDown: false});
   };
 
   // firebaseSetPixel = (r, c, color) => {
@@ -74,7 +75,7 @@ class PixelGrid extends React.Component {
       col: c,
       color: this.state.color
     });
-  }
+  };
 
   firebaseSetPixel = (c, r) => {
     firebase.database().ref(`/grid/${r}-${c}`).set({
@@ -82,18 +83,18 @@ class PixelGrid extends React.Component {
       col: c,
       color: this.state.color
     });
-  }
+  };
 
   firebaseLastDrawListen = () => {
     let listen = firebase.database().ref('/lastDraw');
     listen.on('value', (snapshot) => {
-      let data = snapshot.val()
+      let data = snapshot.val();
       if (this.state.firstDraw === false) {
-        this.firebasePaint( data.row, data.col, data.color )
-      }
-      this.setState({ firstDraw: false })
-    })
-  }
+        this.firebasePaint( data.row, data.col, data.color );
+      };
+      this.setState({ firstDraw: false });
+    });
+  };
 
   // firebaseGridListen = () => {
     // let listen = firebase.database().ref('/grid');
@@ -109,8 +110,8 @@ class PixelGrid extends React.Component {
     newImage[r].splice(c, 1, color )
     this.setState({
       image: newImage
-    })
-  }
+    });
+  };
 
   getPhotoFromFirebase = () => {
     console.log('hello');
@@ -123,21 +124,22 @@ class PixelGrid extends React.Component {
       for(let i = 0; i < pix.length; i++){
         const {row, col, color} = pix[i];
           output[col][row] = color;
-      }
+      };
       this.setState({ image: output });
     });
-  }
+  };
 
   firebaseEmptyGrid = () => {
-    firebase.database().ref('/grid').remove()
-  }
+    firebase.database().ref('/grid').remove();
+  };
 
   colorPickerData = ( data ) => {
     this.setState({ color : data});
-  }
+  };
+
 
   render(){
-    const { image } = this.state
+    const { image } = this.state;
     return(
       <div className='App'>
         <h2>PixelCanvas02</h2>

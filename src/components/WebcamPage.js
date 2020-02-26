@@ -8,32 +8,30 @@ class WebcamPage extends React.Component {
 
   state = {
     image: ''
-  }
+  };
 
   setRef = webcam => {
-      this.webcam = webcam;
-    };
+    this.webcam = webcam;
+  };
 
   capture = () => {
-    // const imageSrc = this.webcam.getCanvas();
     const imageSrc = this.webcam.getScreenshot();
-    // console.log(imageSrc);
-    this.setState({ image: imageSrc })
-    // this.setState({ image: `<img src='${imageSrc}' />` })
+    this.setState({ image: imageSrc });
   };
 
   takeAnother = () => {
     this.setState({ image: null })
-  }
+  };
 
   componentDidMount = () => {
-  }
+  };
 
   pixelate = () => {
-    firebase.database().ref('/grid').remove()
-    let c = this.refs.canvas
-    let ctx = c.getContext("2d")
-    let img1 = this.refs.webcamImage
+    console.log('clearing database');
+    firebase.database().ref('/grid').remove();
+    let c = this.refs.canvas;
+    let ctx = c.getContext("2d");
+    let img1 = this.refs.webcamImage;
     console.log('canvas', c);
     console.log('ctx', ctx);
     console.log('img1', img1);
@@ -53,11 +51,16 @@ class WebcamPage extends React.Component {
         let p = (x + (y*w)) * 4;
         ctx.fillStyle = "rgba(" + pixelArr[p] + "," + pixelArr[p + 1] + "," + pixelArr[p + 2] + "," + pixelArr[p + 3] + ")";
         ctx.fillRect(x, y, sample_size, sample_size);
-        this.firebaseSetPixel( x, y, ctx.fillStyle )
+        this.firebaseSetPixel( x, y, ctx.fillStyle );
         // console.log(x, y, ctx.fillStyle);
 
       }
     }
+    console.log('redraw grid here');
+    firebase.database().ref(`/gridWasUpdated`).set({
+      update: 'yes'
+     });
+
   }
 
   firebaseSetPixel = (r, c, color) => {
