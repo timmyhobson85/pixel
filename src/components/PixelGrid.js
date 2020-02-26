@@ -31,7 +31,6 @@ class PixelGrid extends React.Component {
 
   paintClick = (r, c, event) => {
     if (this.state.eyeDropperActive) {
-      console.log(event.target.style.backgroundColor);
       this.setState({
         color: event.target.style.backgroundColor,
         eyeDropperActive: false
@@ -130,7 +129,6 @@ class PixelGrid extends React.Component {
   };
 
   getPhotoFromFirebase = () => {
-    console.log('hello');
     firebase.database().ref('/grid').once('value')
     // .then((pixels) => console.log(pixels.val()))
     .then((pixels) => {

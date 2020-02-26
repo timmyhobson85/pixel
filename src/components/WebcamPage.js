@@ -16,7 +16,10 @@ class WebcamPage extends React.Component {
 
   capture = () => {
     const imageSrc = this.webcam.getScreenshot();
-    this.setState({ image: imageSrc });
+    this.setState({ image: imageSrc }, () => {
+      setTimeout(() => this.pixelate(), 0)
+    });
+
   };
 
   takeAnother = () => {
@@ -60,7 +63,7 @@ class WebcamPage extends React.Component {
     firebase.database().ref(`/gridWasUpdated`).set({
       update: firebase.database.ServerValue.TIMESTAMP
      });
-
+     this.props.history.push(`/PixelGrid`)
   }
 
   firebaseSetPixel = (r, c, color) => {
@@ -90,6 +93,8 @@ class WebcamPage extends React.Component {
           <br/>
           <button onClick={this.takeAnother}>take another</button>
           <button onClick={this.pixelate}>pixelate</button>
+          {
+          }
           </div>
           :
           <div>
@@ -108,7 +113,7 @@ class WebcamPage extends React.Component {
           <br/>
           </div>
         }
-        <canvas ref="canvas" width={100} height={40} />
+        <canvas ref="canvas" width={100} height={40} className="hidden" />
         <img ref="webcamImage" src={this.state.image} className="hidden"/>
         </div>
       </div>

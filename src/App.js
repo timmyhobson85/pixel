@@ -22,14 +22,10 @@ function App() {
       <Link to="/PixelGrid">PixelGrid</Link> |&nbsp;
       <Link to="/Chat">Chat</Link> |&nbsp;
       <Link to="/WebcamPage">WebcamPage</Link> |&nbsp;
-      <Link to="/Pixelate">Pixelate</Link> |&nbsp;
-      <Link to="/CanvasTest">CanvasTest</Link> |&nbsp;
     </nav>
     <Route exact path="/PixelGrid" component={PixelGrid} />
     <Route exact path="/Chat" component={Chat} />
     <Route exact path="/WebcamPage" component={WebcamPage} />
-    <Route exact path="/Pixelate" component={Pixelate} />
-    <Route exact path="/CanvasTest" component={CanvasTest} />
     </Router>
     </div>
   );
