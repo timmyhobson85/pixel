@@ -24,7 +24,7 @@ class ColorPicker extends React.Component {
 
   render(){
     return(
-      <div className='App'>
+      <div className='colorPickerButton'>
         <button
           id="colorPickerButton"
           style={{

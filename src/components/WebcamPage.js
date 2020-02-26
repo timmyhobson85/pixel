@@ -7,7 +7,8 @@ import './WebcamPage.css'
 class WebcamPage extends React.Component {
 
   state = {
-    image: ''
+    image: '',
+    webcamShow: false,
   };
 
   setRef = webcam => {
@@ -17,9 +18,10 @@ class WebcamPage extends React.Component {
   capture = () => {
     const imageSrc = this.webcam.getScreenshot();
     this.setState({ image: imageSrc }, () => {
+      // this waits for the image to render before it runs the pixelate method.
       setTimeout(() => this.pixelate(), 0)
     });
-
+    this.setState({ webcamShow: false });
   };
 
   takeAnother = () => {
@@ -63,7 +65,8 @@ class WebcamPage extends React.Component {
     firebase.database().ref(`/gridWasUpdated`).set({
       update: firebase.database.ServerValue.TIMESTAMP
      });
-     this.props.history.push(`/PixelGrid`)
+     // don't need to push when it's component
+     // this.props.history.push(`/PixelGrid`)
   }
 
   firebaseSetPixel = (r, c, color) => {
@@ -75,6 +78,10 @@ class WebcamPage extends React.Component {
     });
   }
 
+  showWebCam = () => {
+    this.setState({ webcamShow: true})
+  }
+
 
   render() {
     const videoConstraints = {
@@ -84,34 +91,29 @@ class WebcamPage extends React.Component {
     };
 
     return (
-      <div>
-        <h2>take a photo</h2>
+      <div className="webcamPage">
+        <button id="takePhotoButton" onClick={this.showWebCam}>take a photo</button>
         <div>
         {
-          this.state.image ?
+          this.state.webcamShow ?
           <div>
-          <br/>
-          <button onClick={this.takeAnother}>take another</button>
-          <button onClick={this.pixelate}>pixelate</button>
-          {
-          }
+            <Webcam
+              className="showWebCam"
+              audio={false}
+              height={400}
+              ref={this.setRef}
+              screenshotFormat="image/jpeg"
+              width={1000}
+              videoConstraints={videoConstraints}
+              minScreenshotHeight={40}
+              minScreenshotWidth={100}
+              />
+            <br/>
+            <button onClick={this.capture}>Capture photo</button>
+            <br/>
           </div>
           :
-          <div>
-          <Webcam
-            audio={false}
-            height={400}
-            ref={this.setRef}
-            screenshotFormat="image/jpeg"
-            width={1000}
-            videoConstraints={videoConstraints}
-            minScreenshotHeight={40}
-            minScreenshotWidth={100}
-          />
-          <br/>
-          <button onClick={this.capture}>Capture photo</button>
-          <br/>
-          </div>
+          ''
         }
         <canvas ref="canvas" width={100} height={40} className="hidden" />
         <img ref="webcamImage" src={this.state.image} className="hidden"/>

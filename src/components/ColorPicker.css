@@ -3,3 +3,10 @@
   height: 100px;
   color:white
 }
+
+
+.colorPickerButton {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}

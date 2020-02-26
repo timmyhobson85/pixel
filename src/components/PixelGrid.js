@@ -15,6 +15,7 @@ class PixelGrid extends React.Component {
     mouseDown: false,
     firstDraw: true,
     eyeDropperActive: false,
+    webcamShow: false
   };
 
   componentDidMount() {
@@ -151,14 +152,21 @@ class PixelGrid extends React.Component {
     this.setState({ color : data});
   };
 
+  takeNewPhoto = () => {
+    this.setState({ webcamShow: false })
+  }
+
 
   render(){
+
     const { image } = this.state;
+
     return(
       <div className='App'>
-        <h2>PixelCanvas02</h2>
+        <WebcamPage />
         {
           this.state.image.length > 1 ?
+          <div className="pixelWrapper">
           <div
             className="pixelGrid"
             onMouseLeave={this.setMouseUp}
@@ -189,14 +197,21 @@ class PixelGrid extends React.Component {
             ))
           }
           </div>
+          <ColorPicker
+            color={this.state.color}
+            sendColorData={this.colorPickerData}
+            />
+          <button
+            onClick={this.activateEyeDropper}
+            className="eyedropperButton"
+          >
+          eyedropper</button>
+          </div>
+
           :
           <p>loading...</p>
         }
-        <ColorPicker
-          color={this.state.color}
-          sendColorData={this.colorPickerData}
-        />
-      <button onClick={this.activateEyeDropper}>eyedropper</button>
+
         <br/>
         <br/>
       </div>
