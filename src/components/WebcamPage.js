@@ -58,7 +58,7 @@ class WebcamPage extends React.Component {
     }
     console.log('redraw grid here');
     firebase.database().ref(`/gridWasUpdated`).set({
-      update: 'yes'
+      update: firebase.database.ServerValue.TIMESTAMP
      });
 
   }

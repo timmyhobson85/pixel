@@ -18,7 +18,7 @@ class PixelGrid extends React.Component {
 
   componentDidMount() {
     this.firebaseLastDrawListen();
-    // this.firebaseGridListen()
+    this.firebaseGridWasUpdatedListen()
     this.getPhotoFromFirebase();
   };
 
@@ -96,14 +96,15 @@ class PixelGrid extends React.Component {
     });
   };
 
-  // firebaseGridListen = () => {
-    // let listen = firebase.database().ref('/grid');
-    // listen.on('value', (snapshot) => {
-    //   let data = snapshot.val()
-    //   // console.log('firebaseListen', data.row, data.col);
-    //   console.log(data);
-    // })
-  // }
+  firebaseGridWasUpdatedListen = () => {
+    let listen = firebase.database().ref('/gridWasUpdated');
+    listen.on('value', (snapshot) => {
+      let data = snapshot.val()
+      // console.log('firebaseListen', data.row, data.col);
+      // console.log(data);
+      this.getPhotoFromFirebase()
+    })
+  }
 
   firebasePaint = ( r, c, color ) => {
     let newImage = cloneDeep(this.state.image);
