@@ -14,7 +14,7 @@ class SaveImage extends React.Component {
 
   componentDidMount(){
     // this.saveImage()
-    console.log('mounted');
+    // console.log('mounted');
     this.firebaseFetchImage()
   }
 
@@ -36,7 +36,7 @@ class SaveImage extends React.Component {
         if (row >= 0 && col >= 0) {
           output[col][row] = color;
         } else {
-          console.log(col, row, color);
+          // console.log(col, row, color);
         }
       };
       this.setState({ image: output });
@@ -45,7 +45,7 @@ class SaveImage extends React.Component {
   }
 
   saveImage = () => {
-    console.log('saves');
+    // console.log('saves');
     let c = this.refs.saveCanvas;
     let ctx = c.getContext("2d");
     c.width = 1000;
@@ -60,13 +60,13 @@ class SaveImage extends React.Component {
       }
     }
 
-    console.log(c.toDataURL('image/png'))
+    // console.log(c.toDataURL('image/png'))
     let data = (c.toDataURL('image/png'))
     this.setState({dataURL: data})
   }
 
   oldsaveImage = () => {
-    console.log('saves');
+    // console.log('saves');
     let c = this.refs.saveCanvas;
     let ctx = c.getContext("2d");
     let img1 = this.refs.saveImageImage;
@@ -99,7 +99,7 @@ class SaveImage extends React.Component {
 
 
   downloadClick = () => {
-    console.log('download');
+    // console.log('download');
     const data = this.refs.saveCanvas.toDataURL('image/png');
     const a = document.createElement('a');
     a.href = data;

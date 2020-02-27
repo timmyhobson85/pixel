@@ -18,7 +18,7 @@ class ChatBox extends React.Component {
 
   handleKeyDown = (e) => {
     if ( e.key === 'Enter' ) {
-      console.log('enter pressed');
+      // console.log('enter pressed');
       firebase.database().ref('/messages/').set({
         update: Math.random(), //firebase.database.ServerValue.TIMESTAMP,
         message: this.state.message
@@ -29,12 +29,12 @@ class ChatBox extends React.Component {
   }
 
   firebaseMessageListen = () => {
-    console.log('%cLISTENER SET UP', 'font-size: 16pt');
+    // console.log('%cLISTENER SET UP', 'font-size: 16pt');
     let listen = firebase.database().ref('/messages');
     listen.on('value', (snapshot) => {
       let data = snapshot.val();
       if (this.state.firstMessage === false) {
-        console.log(data);
+        // console.log(data);
         let chatBoxArray = [...this.state.chatlog]
         chatBoxArray.unshift(data.message)
         this.setState({ chatlog: chatBoxArray})

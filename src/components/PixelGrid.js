@@ -7,6 +7,11 @@ import WebcamPage from './WebcamPage'
 import SaveImage from './SaveImage'
 import ChatBox from './ChatBox'
 import Canvas from './Canvas'
+import {
+  Route,
+  Link,
+  HashRouter as Router
+} from 'react-router-dom'
 
 // i can take away state changes?!
 
@@ -58,6 +63,9 @@ class PixelGrid extends React.Component {
 
     return(
       <div className='App'>
+        <Link to="/gallery">
+          <button id="pixelGridButton">to gallery</button>
+        </Link>
         {
           this.state.saveImageShow && <SaveImage
           push={this.props.history.push}

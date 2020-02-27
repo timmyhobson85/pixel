@@ -33,14 +33,14 @@ class WebcamPage extends React.Component {
   };
 
   pixelate = () => {
-    console.log('clearing database');
-    firebase.database().ref('/grid').remove();
+    // console.log('clearing database');
+    // firebase.database().ref('/grid').remove();
     let c = this.refs.canvas;
     let ctx = c.getContext("2d");
     let img1 = this.refs.webcamImage;
-    console.log('canvas', c);
-    console.log('ctx', ctx);
-    console.log('img1', img1);
+    // console.log('canvas', c);
+    // console.log('ctx', ctx);
+    // console.log('img1', img1);
 
     let w = img1.width;
     let h = img1.height;
@@ -62,7 +62,7 @@ class WebcamPage extends React.Component {
 
       }
     }
-    console.log('redraw grid here');
+    // console.log('redraw grid here');
     firebase.database().ref(`/gridWasUpdated`).set({
       update: Math.random() // firebase.database.ServerValue.TIMESTAMP
     });

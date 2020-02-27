@@ -49,6 +49,10 @@ class ColorPicker extends React.Component {
             disableAlpha={this.state.disableAlpha}
             onMouseLeave={this.showColorPicker}
           />
+          <div
+            id="pickerClose"
+            onClick={this.showColorPicker}
+          >close</div>
           </div>
         }
       </div>

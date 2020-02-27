@@ -46,7 +46,7 @@ class Canvas extends React.Component {
   }
 
   saveImage = () => {
-    console.log('saves');
+    // console.log('saves');
     let c = this.refs.drawCanvas;
     let ctx = c.getContext("2d");
     c.width = 1000;
@@ -94,7 +94,7 @@ class Canvas extends React.Component {
   };
 
   clickOnCanvas = (e) => {
-    console.log('click');
+    // console.log('click');
     let can = this.refs.drawCanvas;
     let rect = can.getBoundingClientRect()
     let c = Math.floor( (e.pageX - rect.left)/10)
@@ -108,18 +108,18 @@ class Canvas extends React.Component {
   }
 
   mouseDown = (e) => {
-    console.log('mouseDown');
+    // console.log('mouseDown');
     this.setState({ mouseDown: true })
   }
 
   mouseUp = (e) => {
-    console.log('mouseUp');
+    // console.log('mouseUp');
     this.setState({mouseDown:false})
   }
 
   mouseMove = (e) => {
     if (this.state.mouseDown) {
-      console.log('mouseMovemouseDownTrue');
+      // console.log('mouseMovemouseDownTrue');
       let can = this.refs.drawCanvas;
       let rect = can.getBoundingClientRect()
       let c = Math.floor( (e.pageX - rect.left)/10)
@@ -131,12 +131,12 @@ class Canvas extends React.Component {
       });
       this.firebaseSetPixel( r, c )
     } else {
-      console.log('mouseMovemouseDownFalse');
+      // console.log('mouseMovemouseDownFalse');
     }
   }
 
   mouseLeave = (e) => {
-    console.log('leave');
+    // console.log('leave');
     this.setState({mouseDown: false})
   }
 
