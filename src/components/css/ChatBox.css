@@ -8,6 +8,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
+  /* z-index: -10; */
 }
 
 .chatMessages {
@@ -15,4 +16,5 @@
   overflow-x: scroll;
   display: flex;
   flex-direction: column-reverse;
+  /* z-index: -10; */
 }

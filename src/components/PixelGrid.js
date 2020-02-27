@@ -13,8 +13,8 @@ class PixelGrid extends React.Component {
 
   state = {
     image: [],
-    row: 40,
-    col: 100,
+    row: 72,
+    col: 128,
     color: "rebeccapurple",
     mouseDown: false,
     firstDraw: true,
@@ -43,11 +43,11 @@ class PixelGrid extends React.Component {
       });
     } else {
     // let newImage = [...this.state.image]; // this is a shallow copy - use deep copy with lodash
-    let newImage = cloneDeep(this.state.image);
-    newImage[r].splice(c, 1, this.state.color );
-    this.setState({
-      image: newImage
-    });
+    // let newImage = cloneDeep(this.state.image);
+    // newImage[r].splice(c, 1, this.state.color );
+    // this.setState({
+      // image: newImage
+    // });
     this.firebaseSetLastDraw( r, c );
     this.firebaseSetPixel( r, c );
     }
@@ -57,22 +57,22 @@ class PixelGrid extends React.Component {
     if (this.state.mouseDown) {
       this.firebaseSetLastDraw( r, c, this.state.color);
       this.firebaseSetPixel( r, c )
-      let newImage = cloneDeep(this.state.image);
-      newImage[r].splice(c, 1, this.state.color);
-      this.setState({
-        image: newImage
-      });
+      // let newImage = cloneDeep(this.state.image);
+      // newImage[r].splice(c, 1, this.state.color);
+      // this.setState({
+      //   image: newImage
+      // });
     };
   };
 
   setMouseDown = (r, c) => {
-    let newImage = cloneDeep(this.state.image);
-    newImage[r].splice(c, 1, this.state.color );
+    // let newImage = cloneDeep(this.state.image);
+    // newImage[r].splice(c, 1, this.state.color );
     this.firebaseSetLastDraw( r, c, this.state.color);
     this.firebaseSetPixel( r, c );
-    this.setState({
-      image: newImage
-    });
+    // this.setState({
+    //   image: newImage
+    // });
     this.setState({ mouseDown: true});
   };
 
@@ -130,8 +130,8 @@ class PixelGrid extends React.Component {
     // .then((pixels) => console.log(pixels.val()))
     .then((pixels) => {
       const pix = Object.values( pixels.val() );
-      const output = Array(40).fill(null).map( el => new Array(100) );
-      let rows = 40; let cols = 100;
+      const output = Array(72).fill(null).map( el => new Array(128) );
+      let rows = 72; let cols = 128;
       for(let i = 0; i < pix.length; i++){
         const {row, col, color} = pix[i];
           output[col][row] = color;
@@ -244,9 +244,9 @@ export default PixelGrid
 // row/col inputs
 // <h4>testinput</h4>
 // <label>row</label>
-// <input type="number" min="1" max="100" name="row" defaultValue={this.state.row} onChange={this.handleChangeSelect}/>
+// <input type="number" min="1" max="128" name="row" defaultValue={this.state.row} onChange={this.handleChangeSelect}/>
 // <label>col</label>
-// <input type="number" min="1" max="100" name="col" defaultValue={this.state.col} onChange={this.handleChangeSelect}/>
+// <input type="number" min="1" max="128" name="col" defaultValue={this.state.col} onChange={this.handleChangeSelect}/>
 // <h4>endtestinput</h4>
 // <label> row </label>
 // <input type="text" name="row" onChange={this.handleChange} /> <br/>

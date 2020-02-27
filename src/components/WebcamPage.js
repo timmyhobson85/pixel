@@ -89,8 +89,8 @@ class WebcamPage extends React.Component {
 
   render() {
     const videoConstraints = {
-      width: 100,
-      height: 40,
+      width: 128,
+      height: 72,
       facingMode: "user"
     };
 
@@ -104,13 +104,13 @@ class WebcamPage extends React.Component {
             <Webcam
               className="showWebCam"
               audio={false}
-              height={400}
+              height={720}
               ref={this.setRef}
               screenshotFormat="image/jpeg"
-              width={1000}
+              width={1280}
               videoConstraints={videoConstraints}
-              minScreenshotHeight={40}
-              minScreenshotWidth={100}
+              minScreenshotHeight={72}
+              minScreenshotWidth={128}
               />
             <br/>
             <button onClick={this.capture}>Capture photo</button>
@@ -119,7 +119,7 @@ class WebcamPage extends React.Component {
           </div>
           </div>
         }
-        <canvas ref="canvas" width={100} height={40} className="hidden" />
+        <canvas ref="canvas" width={128} height={72} className="hidden" />
         <img ref="webcamImage" src={this.state.image} className="hidden"/>
       </div>
 

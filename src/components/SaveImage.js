@@ -31,9 +31,9 @@ class SaveImage extends React.Component {
     let w = img1.width;
     let h = img1.height;
     // c.width = w;
-    c.width = 1000;
+    c.width = 1280;
     // c.height = h;
-    c.height = 400;
+    c.height = 720;
     let imageData = this.props.image
     // console.log(imageData);
     for (var y = 0; y < imageData.length; y++) {
@@ -89,7 +89,7 @@ class SaveImage extends React.Component {
       <div className="saveImagePage">
         <canvas
           ref="saveCanvas"
-          width={1000} height={400} className="saveImageCanvas"
+          width={1280} height={720} className="saveImageCanvas"
           />
         <img
           ref="saveImageImage"

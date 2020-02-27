@@ -15,8 +15,8 @@ class TestCanvas extends React.Component {
     // .then((pixels) => console.log(pixels.val()))
     .then((pixels) => {
       const pix = Object.values( pixels.val() );
-      const output = Array(40).fill(null).map( el => new Array(100) );
-      let rows = 40; let cols = 100;
+      const output = Array(72).fill(null).map( el => new Array(128) );
+      let rows = 72; let cols = 128;
       for(let i = 0; i < pix.length; i++){
         const {row, col, color} = pix[i];
           output[col][row] = color;
@@ -31,8 +31,8 @@ class TestCanvas extends React.Component {
     console.log('saves');
     let c = this.refs.saveCanvas;
     let ctx = c.getContext("2d");;
-    c.width = 1000;
-    c.height = 400;
+    c.width = 1280;
+    c.height = 720;
     let imageData = this.state.image
     for (var y = 0; y < imageData.length; y++) {
       // console.log(imageData[y]) // rows
@@ -123,8 +123,8 @@ class TestCanvas extends React.Component {
       <div className='App'>
           <canvas
             ref="saveCanvas"
-            width={1000}
-            height={400}
+            width={1280}
+            height={720}
             className="saveImageCanvas"
             onClick={this.clickOnCanvas}
             onMouseDown={this.mouseDown}
