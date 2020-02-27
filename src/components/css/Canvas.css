@@ -8,4 +8,5 @@
   max-width: 1000px;
   max-height: 600px;
   margin: 0 auto;
+  box-shadow: 0 0 0 10px #00000075;
 }

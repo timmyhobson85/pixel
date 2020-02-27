@@ -57,7 +57,7 @@ class ChatBox extends React.Component {
             <p>{message}</p>
           )
           :
-          ''
+          <p>chat to fellow artists</p>
         }
         </div>
       <input
@@ -65,6 +65,7 @@ class ChatBox extends React.Component {
         ref="messageBox"
         type="text"
         name="message"
+        placeholder='type here'
         onKeyDown={this.handleKeyDown}
         onChange={this.handleChange}
         />

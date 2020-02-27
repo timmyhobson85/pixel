@@ -71,11 +71,6 @@ class PixelGrid extends React.Component {
         <div className='toolBox'>
           <WebcamPage />
           <button onClick={this.saveImageShow}>save image</button>
-          <button
-            onClick={this.activateEyeDropper}
-            className="eyedropperButton"
-          >
-          eye dropper</button>
           <ColorPicker
             color={this.state.color}
             sendColorData={this.colorPickerData}
@@ -84,6 +79,11 @@ class PixelGrid extends React.Component {
         <br/>
         <br/>
         <ChatBox />
+        <div id="info">
+          <p>collaborative with everyone online to create art</p>
+          <p>you can also take a photo to upload to the grid</p>
+          <p>you can also save your images to disk, or upload to the gallery</p>
+        </div>
       </div>
     )
   }
@@ -139,3 +139,9 @@ export default PixelGrid
 // onMouseDown={() => this.setMouseDown(i, j)}
 // onMouseOver={() => this.paintMouseOver(i, j)}
 // onMouseUp={this.setMouseUp}
+
+// <button
+//   onClick={this.activateEyeDropper}
+//   className="eyedropperButton"
+// >
+// eye dropper</button>

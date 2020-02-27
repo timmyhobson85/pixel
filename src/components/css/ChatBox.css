@@ -2,7 +2,7 @@
   position: absolute;
   left: 1%;
   display: flex;
-  width: 20vw;
+  width: 15vw;
   height: 50vh;
   /* justify-content: center; */
   align-items: center;
@@ -15,7 +15,7 @@
 .chatMessages {
   height: 80%;
   width: 90%;
-  overflow-x: scroll;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column-reverse;
   background-color: rgb(99, 99, 99);

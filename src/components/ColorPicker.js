@@ -41,8 +41,7 @@ class ColorPicker extends React.Component {
         </button>
         {
           this.state.displayColorPicker &&
-          <div className="sketchWrapper"
-            onClick={this.showColorPicker}>
+          <div className="sketchWrapper">
           <SketchPicker
             color={this.state.color}
             onChange={this.sendColorData}
