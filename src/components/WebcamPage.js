@@ -34,7 +34,7 @@ class WebcamPage extends React.Component {
 
   pixelate = () => {
     // console.log('clearing database');
-    // firebase.database().ref('/grid').remove();
+    firebase.database().ref('/grid').remove();
     let c = this.refs.canvas;
     let ctx = c.getContext("2d");
     let img1 = this.refs.webcamImage;

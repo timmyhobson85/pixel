@@ -10,7 +10,7 @@
   flex-direction: column;
   z-index: 2000;
   background-color: rgb(50, 50, 50);
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 #saveImageLoadingText {
