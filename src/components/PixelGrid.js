@@ -5,6 +5,7 @@ import ColorPicker from './ColorPicker'
 import firebase from '../firebase.js'
 import WebcamPage from './WebcamPage'
 import SaveImage from './SaveImage'
+import ChatBox from './ChatBox'
 
 
 class PixelGrid extends React.Component {
@@ -13,7 +14,7 @@ class PixelGrid extends React.Component {
     image: [],
     row: 40,
     col: 100,
-    color: "#555555",
+    color: "rebeccapurple",
     mouseDown: false,
     firstDraw: true,
     eyeDropperActive: false,
@@ -232,6 +233,7 @@ class PixelGrid extends React.Component {
         </div>
         <br/>
         <br/>
+        <ChatBox />
       </div>
     )
   }
