@@ -144,17 +144,21 @@ class Canvas extends React.Component {
   render(){
     return(
       <div className='App'>
-          <canvas
-            ref="drawCanvas"
-            width={1000}
-            height={600}
-            className="drawCanvas"
-            onClick={this.clickOnCanvas}
-            onMouseDown={this.mouseDown}
-            onMouseMove={this.mouseMove}
-            onMouseUp={this.mouseUp}
-            onMouseLeave={this.mouseLeave}
-            />
+        { this.state.image ?
+        <canvas
+          ref="drawCanvas"
+          width={1000}
+          height={600}
+          className="drawCanvas"
+          onClick={this.clickOnCanvas}
+          onMouseDown={this.mouseDown}
+          onMouseMove={this.mouseMove}
+          onMouseUp={this.mouseUp}
+          onMouseLeave={this.mouseLeave}
+          />
+        :
+        'loading...'
+        }
       </div>
     )
   }
