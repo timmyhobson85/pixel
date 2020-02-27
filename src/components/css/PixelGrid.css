@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+
+.pixelRow {
+  /* height: 20px; */
+}
+
+.row {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  /* height: 20px; */
+}
+
+.pixel {
+  display: inline-block;
+  cursor: pointer;
+  /* width: 20px;   */
+  /* height: 20px;   */
+  /* border: 1px solid rgb(98, 98, 98); */
+  /* border-width: 0 1px 1px 0; */
+}
+
+.pixel:hover {
+  /* filter:brightness(10);   */
+  box-shadow: inset 0 0 0px 0.5px black;
+}
+
+.pixelGrid {
+  width: 80vw;
+  min-height: 20px;
+  margin: 0 auto;
+  position: absolute;
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+  background-color: rgb(50, 50, 50);
+}
+
+.pixelWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eyedropperButton {
+  /* position: fixed;
+  top: 0;
+  right: 0; */
+}
+
+.toolBox {
+  position: absolute;
+  right: 0;
+  display: flex;
+  width: 100px;
+  height: 50vh;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+}

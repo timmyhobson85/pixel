@@ -1,5 +1,5 @@
 import React from 'react'
-import './PixelGrid.css';
+import './css/PixelGrid.css';
 import { cloneDeep } from 'lodash'
 import ColorPicker from './ColorPicker'
 import firebase from '../firebase.js'
@@ -8,15 +8,17 @@ import SaveImage from './SaveImage'
 
 
 class PixelGrid extends React.Component {
+
   state = {
     image: [],
     row: 40,
     col: 100,
-    color: "#000000",
+    color: "#555555",
     mouseDown: false,
     firstDraw: true,
     eyeDropperActive: false,
-    webcamShow: false
+    webcamShow: false,
+    saveImageShow: false,
   };
 
   componentDidMount() {
@@ -75,15 +77,6 @@ class PixelGrid extends React.Component {
   setMouseUp = () => {
     this.setState({ mouseDown: false});
   };
-
-  // firebaseSetPixel = (r, c, color) => {
-    // console.log('sending to firebase');
-    // firebase.database().ref(`/grid/${r}-${c}`).set({
-    //   row: r,
-    //   col: c,
-    //   color: color
-    // });
-  // }
 
   firebaseSetLastDraw = (r, c) => {
     firebase.database().ref('/lastDraw').set({
@@ -153,10 +146,20 @@ class PixelGrid extends React.Component {
     this.setState({ color : data});
   };
 
-  takeNewPhoto = () => {
+  saveImageShow = () => {
+    this.setState({ saveImageShow: true})
+  }
+
+  showWebCam = () => {
+    this.setState({ webcamShow: !this.state.webcamShow })
+  }
+  turnOffWebcam = () => {
     this.setState({ webcamShow: false })
   }
 
+  getImageShow = () => {
+    this.setState({ saveImageShow: false })
+  }
 
   render(){
 
@@ -164,7 +167,13 @@ class PixelGrid extends React.Component {
 
     return(
       <div className='App'>
-        <WebcamPage />
+        {
+          this.state.saveImageShow && <SaveImage
+          push={this.props.history.push}
+          image={this.state.image}
+          getImageShow={this.getImageShow}
+        />
+        }
         {
           this.state.image.length > 1 ?
           <div className="pixelWrapper">
@@ -201,27 +210,28 @@ class PixelGrid extends React.Component {
             ))
           }
           </div>
-          <ColorPicker
-            color={this.state.color}
-            sendColorData={this.colorPickerData}
-            />
-          <button
-            onClick={this.activateEyeDropper}
-            className="eyedropperButton"
-          >
-          eyedropper</button>
+
+
           </div>
 
           :
           <p>loading...</p>
         }
-
+        <div className='toolBox'>
+          <WebcamPage />
+          <button onClick={this.saveImageShow}>save image</button>
+          <button
+            onClick={this.activateEyeDropper}
+            className="eyedropperButton"
+          >
+          eyedropper</button>
+          <ColorPicker
+            color={this.state.color}
+            sendColorData={this.colorPickerData}
+            />
+        </div>
         <br/>
         <br/>
-        <SaveImage
-          push={this.props.history.push}
-          image={this.state.image}
-        />
       </div>
     )
   }

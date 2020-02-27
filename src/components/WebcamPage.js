@@ -1,14 +1,14 @@
 import React from 'react'
 import Webcam from 'react-webcam'
 import firebase from '../firebase.js'
-import './WebcamPage.css'
+import './css/WebcamPage.css'
 
 
 class WebcamPage extends React.Component {
 
   state = {
     image: '',
-    webcamShow: false,
+    webcamShow: false
   };
 
   setRef = webcam => {
@@ -22,13 +22,14 @@ class WebcamPage extends React.Component {
       setTimeout(() => this.pixelate(), 0)
     });
     this.setState({ webcamShow: false });
+    // this.props.turnOffWebcam()
   };
 
   takeAnother = () => {
     this.setState({ image: null })
   };
 
-  componentDidMount = () => {
+  componentDidUpdate = () => {
   };
 
   pixelate = () => {
@@ -77,11 +78,14 @@ class WebcamPage extends React.Component {
       color: color
     });
   }
-
+  //
   showWebCam = () => {
     this.setState({ webcamShow: true})
   }
 
+  cancelClick = () => {
+    this.setState({ webcamShow: false });
+  }
 
   render() {
     const videoConstraints = {
@@ -92,10 +96,10 @@ class WebcamPage extends React.Component {
 
     return (
       <div className="webcamPage">
-        <button id="takePhotoButton" onClick={this.showWebCam}>take a photo</button>
-        <div>
+        <button onClick={this.showWebCam}>take photo</button>
         {
           this.state.webcamShow &&
+          <div className="webcamPopUp">
           <div>
             <Webcam
               className="showWebCam"
@@ -110,12 +114,13 @@ class WebcamPage extends React.Component {
               />
             <br/>
             <button onClick={this.capture}>Capture photo</button>
+            <button onClick={this.cancelClick}>cancel</button>
             <br/>
+          </div>
           </div>
         }
         <canvas ref="canvas" width={100} height={40} className="hidden" />
         <img ref="webcamImage" src={this.state.image} className="hidden"/>
-        </div>
       </div>
 
     );

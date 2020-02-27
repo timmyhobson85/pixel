@@ -1,5 +1,5 @@
 import React from 'react'
-import './SaveImage.css'
+import './css/SaveImage.css'
 import firebase from '../firebase.js'
 
 class SaveImage extends React.Component {
@@ -8,7 +8,12 @@ class SaveImage extends React.Component {
     image : this.props.image,
     artist: 'anonymous',
     title: 'untitled',
-    dataURL: ''
+    dataURL: '',
+    saveImageShow: false,
+  }
+
+  componentDidMount(){
+    this.saveImage()
   }
 
   handleChange = (e) => {
@@ -51,7 +56,7 @@ class SaveImage extends React.Component {
     const data = this.refs.saveCanvas.toDataURL('image/png');
     const a = document.createElement('a');
     a.href = data;
-    a.download = 'image.png';
+    a.download = `${this.state.artist}-${this.state.title}.png`;
     a.click();
   }
 
@@ -68,14 +73,30 @@ class SaveImage extends React.Component {
     this.props.push('/gallery')
   }
 
+  showSaveImage = () => {
+    this.setState({ showSaveImage: true })
+    this.saveImage();
+  }
+
+  cancelClick = () => {
+    this.setState({ showSaveImage: false})
+    this.props.getImageShow()
+  }
+
 
   render(){
     return(
-      <div className='saveImage'>
-        <br/>
-        <canvas ref="saveCanvas" width={1000} height={400} className="saveImageCanvas" />
-        <img ref="saveImageImage" src={this.state.image} className="saveImageImage"/>
-        <button onClick={this.downloadClick}>download</button> <br/>
+      <div className="saveImagePage">
+        <canvas
+          ref="saveCanvas"
+          width={1000} height={400} className="saveImageCanvas"
+          />
+        <img
+          ref="saveImageImage"
+          src={this.state.image}
+          className="saveImageImage hidden"
+          />
+        <div className="saveImage">
         <label>artist</label>
         <input
           name="artist"
@@ -90,10 +111,10 @@ class SaveImage extends React.Component {
           placeholder={this.state.title}
           type="text"
           /><br/>
-
-        <button onClick={this.uploadClick}>upload</button>
-        <button onClick={this.saveImage}>save image</button>
+          <button onClick={this.uploadClick}>upload</button><button onClick={this.downloadClick}>download</button> <br/>
+          <button onClick={this.cancelClick}>cancel</button>
       </div>
+    </div>
     )
   }
 

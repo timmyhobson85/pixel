@@ -1,6 +1,6 @@
 import React from 'react'
 import firebase from '../firebase.js'
-import './Gallery.css'
+import './css/Gallery.css'
 
 class Gallery extends React.Component {
 
@@ -12,7 +12,7 @@ class Gallery extends React.Component {
     firebase.database().ref('/gallery').once('value')
     .then((artworks) => {
       const artwork = Object.values( artworks.val() );
-      this.setState({ images: artwork})
+      this.setState({ images: artwork.reverse() })
     })
   }
 

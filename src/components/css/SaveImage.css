@@ -1,0 +1,12 @@
+.saveImagePage {
+  /* top: 0; */
+  /* left: 0; */
+  position: fixed;
+  display: flex;
+  width: 50vw;
+  height: 50vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 100;
+}
