@@ -136,31 +136,37 @@ class SaveImage extends React.Component {
       <div className="saveImagePage">
         <canvas
           ref="saveCanvas"
-          width={1000} height={600} className="saveImageCanvas"
+          width={1000} height={600}
+          className="saveImageCanvas"
           />
         <img
           ref="saveImageImage"
           src={this.state.image}
           className="saveImageImage hidden"
           />
-        <div className="saveImage">
-        <label>artist</label>
-        <input
-          name="artist"
-          onChange={this.handleChange}
-          placeholder={this.state.artist}
-          type="text"
-          /><br/>
-        <label>title</label>
-        <input
-          name="title"
-          onChange={this.handleChange}
-          placeholder={this.state.title}
-          type="text"
-          /><br/>
-          <button onClick={this.uploadClick}>upload</button><button onClick={this.downloadClick}>download</button> <br/>
-          <button onClick={this.cancelClick}>cancel</button>
-      </div>
+          {
+            this.state.dataURL ?
+            <div id="saveInputs">
+              <label>artist</label>
+              <input
+                name="artist"
+                onChange={this.handleChange}
+                placeholder={this.state.artist}
+                type="text"
+                />
+              <label>title</label>
+              <input
+                name="title"
+                onChange={this.handleChange}
+                placeholder={this.state.title}
+                type="text"
+                />
+              <button onClick={this.uploadClick}>upload to gallery</button><button onClick={this.downloadClick}>download to disk</button>
+              <button onClick={this.cancelClick}>cancel</button>
+            </div>
+            :
+            <h1 id='saveImageLoadingText'>loading...</h1>
+          }
     </div>
     )
   }

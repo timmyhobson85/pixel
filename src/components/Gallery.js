@@ -24,28 +24,28 @@ class Gallery extends React.Component {
   render(){
     return(
       <div className='gallery'>
+        <Link to="/">
+          <button id="pixelGridButton">back to canvas</button>
+        </Link>
         <h2>Gallery</h2>
-          <Link to="/">
-            <button id="pixelGridButton">pixelgrid</button>
-          </Link>
-        <br/>
         <div>
           {
             this.state.images ?
             this.state.images.map( image =>
               <div className="artwork">
-                <h2>
-                  Artist: {image.artist}
-                </h2>
-                <h2>
-                  Title: {image.title}
-                </h2>
-                <br/>
+                <div className="artworkWrapper">
                 <img src={image.dataURL} alt=""/>
+                <h4>
+                  artist: {image.artist}
+                </h4>
+                <h4>
+                  title: {image.title}
+                </h4>
+                </div>
               </div>
             )
             :
-            <p>no</p>
+            <h2>loading...</h2>
           }
         </div>
       </div>

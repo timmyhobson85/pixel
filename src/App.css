@@ -1,5 +1,11 @@
+@import 'https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap';
+
 html {
-  font-family: monospace;
+  font-family: 'Press Start 2P', monospace;
+}
+
+button, input {
+  font-family: 'Press Start 2P', monospace;
 }
 
 .App {
@@ -7,6 +13,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .App-header {
@@ -16,7 +23,6 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -52,4 +58,11 @@ body {
   position: absolute;
   top:0;
   left: 150px;
+}
+
+#header {
+  position: absolute;
+  margin: 10px;
+  top:0;
+  right:0;
 }

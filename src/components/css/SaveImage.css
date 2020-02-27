@@ -1,12 +1,51 @@
 .saveImagePage {
-  /* top: 0; */
-  /* left: 0; */
+  min-width: 1000px;
+  top: 0;
   position: fixed;
   display: flex;
-  width: 50vw;
-  height: 50vh;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 2000
+  z-index: 2000;
+  background-color: rgb(50, 50, 50);
+  overflow: scroll;
+}
+
+#saveImageLoadingText {
+  position: absolute;
+}
+
+.saveImagePage label {
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+}
+
+input {
+  text-align: center;
+  width: 80%;
+  height: 2rem;
+  border: none;
+}
+
+button {
+  /* background-color: red; */
+  margin: 5px;
+  padding: 10px;
+}
+
+#saveInputs {
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.saveImageCanvas {
+  box-shadow: 0 0 0 15px black;
+  background-color: black;
+  margin-bottom: 15px;
 }

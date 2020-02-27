@@ -75,7 +75,7 @@ class PixelGrid extends React.Component {
             onClick={this.activateEyeDropper}
             className="eyedropperButton"
           >
-          eyedropper</button>
+          eye dropper</button>
           <ColorPicker
             color={this.state.color}
             sendColorData={this.colorPickerData}

@@ -97,7 +97,6 @@ class WebcamPage extends React.Component {
         {
           this.state.webcamShow &&
           <div className="webcamPopUp">
-          <div>
             <Webcam
               className="showWebCam"
               audio={false}
@@ -109,11 +108,8 @@ class WebcamPage extends React.Component {
               minScreenshotHeight={60}
               minScreenshotWidth={100}
               />
-            <br/>
             <button onClick={this.capture}>Capture photo</button>
             <button onClick={this.cancelClick}>cancel</button>
-            <br/>
-          </div>
           </div>
         }
         <canvas ref="canvas" width={100} height={60} className="hidden" />

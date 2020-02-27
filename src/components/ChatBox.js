@@ -61,6 +61,7 @@ class ChatBox extends React.Component {
         }
         </div>
       <input
+        id="chatInput"
         ref="messageBox"
         type="text"
         name="message"

@@ -1,20 +1,27 @@
 .chatBox {
   position: absolute;
-  left: 0;
+  left: 1%;
   display: flex;
-  width: 10vw;;
-  height: 25vh;
+  width: 20vw;
+  height: 50vh;
   /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
   /* z-index: -10; */
+  background-color: rgb(50, 50, 50);
 }
 
 .chatMessages {
   height: 80%;
+  width: 90%;
   overflow-x: scroll;
   display: flex;
   flex-direction: column-reverse;
+  background-color: rgb(99, 99, 99);
   /* z-index: -10; */
+}
+
+#chatInput {
+  width: 80%;
 }

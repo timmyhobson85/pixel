@@ -4,20 +4,20 @@
 }
 
 .webcamPage {
-  /* position: absolute;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh; */
-  /* align-items: center;
+  align-items: center;
   justify-content: center;
-  position: absolute;
-  display: flex;
+  flex-direction: column;
+  /* position: absolute;
+  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
   z-index: 10; */
 }
 
 .webcamPopUp {
+  background-color: rgb(50, 50, 50);
   top: 0;
   left: 0;
   position: fixed;
@@ -26,7 +26,13 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 100;
+}
+
+.webcamPopUp button {
+  z-index: 200;
+
 }
 
 #takePhotoButton {
@@ -35,7 +41,11 @@
 }
 
 .showWebCam {
-  border: 10px solid black;
+  box-shadow: 0 0 0 15px black;
   background-color: black;
-  box-shadow: 0 0 20px 7px black;
+  margin-bottom: 30px;
+}
+
+#webcamLoadingText {
+  position: absolute;
 }

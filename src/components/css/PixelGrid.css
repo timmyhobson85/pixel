@@ -50,8 +50,9 @@
 }
 
 .toolBox {
+  padding: 3vw;
   position: absolute;
-  right: 0;
+  right: 1%;
   display: flex;
   width: 100px;
   height: 50vh;

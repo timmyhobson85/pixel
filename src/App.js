@@ -16,6 +16,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
+        <h1 id="header">pixels</h1>
         <Router>
         <Route exact path="/" component={PixelGrid} />
         <Route exact path="/webcam" component={WebcamPage} />
