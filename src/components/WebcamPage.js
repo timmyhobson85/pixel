@@ -64,7 +64,7 @@ class WebcamPage extends React.Component {
     }
     console.log('redraw grid here');
     firebase.database().ref(`/gridWasUpdated`).set({
-      update: firebase.database.ServerValue.TIMESTAMP
+      update: Math.random() // firebase.database.ServerValue.TIMESTAMP
      });
      // don't need to push when it's component
      // this.props.history.push(`/PixelGrid`)
@@ -80,7 +80,7 @@ class WebcamPage extends React.Component {
   }
   //
   showWebCam = () => {
-    this.setState({ webcamShow: true})
+    this.setState({ webcamShow: true});
   }
 
   cancelClick = () => {

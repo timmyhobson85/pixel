@@ -7,6 +7,7 @@ import WebcamPage from './WebcamPage'
 import SaveImage from './SaveImage'
 import ChatBox from './ChatBox'
 
+// i can take away state changes?!
 
 class PixelGrid extends React.Component {
 
@@ -202,7 +203,6 @@ class PixelGrid extends React.Component {
                     onClick={(e) => this.paintClick(i, j, e)}
                     onMouseDown={() => this.setMouseDown(i, j)}
                     onMouseOver={() => this.paintMouseOver(i, j)}
-                    onMouseUp={this.setMouseUp}
                     onMouseUp={this.setMouseUp}
                     />)
                   )
