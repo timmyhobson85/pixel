@@ -6,6 +6,7 @@ import firebase from '../firebase.js'
 import WebcamPage from './WebcamPage'
 import SaveImage from './SaveImage'
 import ChatBox from './ChatBox'
+import Canvas from './Canvas'
 
 // i can take away state changes?!
 
@@ -13,8 +14,6 @@ class PixelGrid extends React.Component {
 
   state = {
     image: [],
-    row: 72,
-    col: 128,
     color: "rebeccapurple",
     mouseDown: false,
     firstDraw: true,
@@ -24,9 +23,6 @@ class PixelGrid extends React.Component {
   };
 
   componentDidMount() {
-    this.firebaseLastDrawListen();
-    this.firebaseGridWasUpdatedListen()
-    this.getPhotoFromFirebase();
   };
 
   activateEyeDropper = () => {
@@ -35,114 +31,7 @@ class PixelGrid extends React.Component {
     });
   };
 
-  paintClick = (r, c, event) => {
-    if (this.state.eyeDropperActive) {
-      this.setState({
-        color: event.target.style.backgroundColor,
-        eyeDropperActive: false
-      });
-    } else {
-    // let newImage = [...this.state.image]; // this is a shallow copy - use deep copy with lodash
-    // let newImage = cloneDeep(this.state.image);
-    // newImage[r].splice(c, 1, this.state.color );
-    // this.setState({
-      // image: newImage
-    // });
-    this.firebaseSetLastDraw( r, c );
-    this.firebaseSetPixel( r, c );
-    }
-  };
 
-  paintMouseOver = (r, c) => {
-    if (this.state.mouseDown) {
-      this.firebaseSetLastDraw( r, c, this.state.color);
-      this.firebaseSetPixel( r, c )
-      // let newImage = cloneDeep(this.state.image);
-      // newImage[r].splice(c, 1, this.state.color);
-      // this.setState({
-      //   image: newImage
-      // });
-    };
-  };
-
-  setMouseDown = (r, c) => {
-    // let newImage = cloneDeep(this.state.image);
-    // newImage[r].splice(c, 1, this.state.color );
-    this.firebaseSetLastDraw( r, c, this.state.color);
-    this.firebaseSetPixel( r, c );
-    // this.setState({
-    //   image: newImage
-    // });
-    this.setState({ mouseDown: true});
-  };
-
-  setMouseUp = () => {
-    this.setState({ mouseDown: false});
-  };
-
-  firebaseSetLastDraw = (r, c) => {
-    firebase.database().ref('/lastDraw').set({
-      row: r,
-      col: c,
-      color: this.state.color
-    });
-  };
-
-  firebaseSetPixel = (c, r) => {
-    firebase.database().ref(`/grid/${r}-${c}`).set({
-      row: r,
-      col: c,
-      color: this.state.color
-    });
-  };
-
-  firebaseLastDrawListen = () => {
-    let listen = firebase.database().ref('/lastDraw');
-    listen.on('value', (snapshot) => {
-      let data = snapshot.val();
-      if (this.state.firstDraw === false) {
-        this.firebasePaint( data.row, data.col, data.color );
-      };
-      this.setState({ firstDraw: false });
-    });
-  };
-
-  firebaseGridWasUpdatedListen = () => {
-    let listen = firebase.database().ref('/gridWasUpdated');
-    listen.on('value', (snapshot) => {
-      let data = snapshot.val()
-      // console.log('firebaseListen', data.row, data.col);
-      // console.log(data);
-      this.getPhotoFromFirebase()
-    })
-  }
-
-  firebasePaint = ( r, c, color ) => {
-    let newImage = cloneDeep(this.state.image);
-    newImage[r].splice(c, 1, color )
-    this.setState({
-      image: newImage
-    });
-  };
-
-  getPhotoFromFirebase = () => {
-    firebase.database().ref('/grid').once('value')
-    // .then((pixels) => console.log(pixels.val()))
-    .then((pixels) => {
-      const pix = Object.values( pixels.val() );
-      const output = Array(72).fill(null).map( el => new Array(128) );
-      let rows = 72; let cols = 128;
-      for(let i = 0; i < pix.length; i++){
-        const {row, col, color} = pix[i];
-          output[col][row] = color;
-      };
-      this.setState({ image: output });
-    });
-  };
-
-  firebaseEmptyGrid = () => {
-    firebase.database().ref('/grid').remove();
-  };
 
   colorPickerData = ( data ) => {
     this.setState({ color : data});
@@ -176,48 +65,9 @@ class PixelGrid extends React.Component {
           getImageShow={this.getImageShow}
         />
         }
-        {
-          this.state.image.length > 1 ?
-          <div className="pixelWrapper">
-          <div
-            className="pixelGrid"
-            onMouseLeave={this.setMouseUp}
-          >
-          {
-          image.map((row, i) => (
-            <div
-              className="row"
-              style={{
-                height: `${100 / image[i].length}%`
-              }}
-              >
-              {
-                row.map( (color, j ) => (
-                  <div
-                    className="pixel"
-                    style={{
-                      backgroundColor: image[i][j] || 'rgb(70, 70, 70)',
-                      width: `${100 / image[i].length}%`,
-                      paddingBottom: `${100 / image[i].length}%`
-                    }}
-                    onClick={(e) => this.paintClick(i, j, e)}
-                    onMouseDown={() => this.setMouseDown(i, j)}
-                    onMouseOver={() => this.paintMouseOver(i, j)}
-                    onMouseUp={this.setMouseUp}
-                    />)
-                  )
-                }
-              </div>
-            ))
-          }
-          </div>
-
-
-          </div>
-
-          :
-          <p>loading...</p>
-        }
+        <Canvas
+          color={this.state.color}
+        />
         <div className='toolBox'>
           <WebcamPage />
           <button onClick={this.saveImageShow}>save image</button>

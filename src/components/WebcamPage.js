@@ -65,13 +65,10 @@ class WebcamPage extends React.Component {
     console.log('redraw grid here');
     firebase.database().ref(`/gridWasUpdated`).set({
       update: Math.random() // firebase.database.ServerValue.TIMESTAMP
-     });
-     // don't need to push when it's component
-     // this.props.history.push(`/PixelGrid`)
+    });
   }
 
   firebaseSetPixel = (r, c, color) => {
-    console.log('sending to firebase');
     firebase.database().ref(`/grid/${r}-${c}`).set({
       row: r,
       col: c,
@@ -89,8 +86,8 @@ class WebcamPage extends React.Component {
 
   render() {
     const videoConstraints = {
-      width: 128,
-      height: 72,
+      width: 1000,
+      height: 600,
       facingMode: "user"
     };
 
@@ -104,13 +101,13 @@ class WebcamPage extends React.Component {
             <Webcam
               className="showWebCam"
               audio={false}
-              height={720}
+              height={600}
               ref={this.setRef}
               screenshotFormat="image/jpeg"
-              width={1280}
+              width={1000}
               videoConstraints={videoConstraints}
-              minScreenshotHeight={72}
-              minScreenshotWidth={128}
+              minScreenshotHeight={60}
+              minScreenshotWidth={100}
               />
             <br/>
             <button onClick={this.capture}>Capture photo</button>
@@ -119,7 +116,7 @@ class WebcamPage extends React.Component {
           </div>
           </div>
         }
-        <canvas ref="canvas" width={128} height={72} className="hidden" />
+        <canvas ref="canvas" width={100} height={60} className="hidden" />
         <img ref="webcamImage" src={this.state.image} className="hidden"/>
       </div>
 

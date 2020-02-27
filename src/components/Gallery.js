@@ -1,6 +1,11 @@
 import React from 'react'
 import firebase from '../firebase.js'
 import './css/Gallery.css'
+import {
+  Route,
+  Link,
+  HashRouter as Router
+} from 'react-router-dom'
 
 class Gallery extends React.Component {
 
@@ -20,6 +25,9 @@ class Gallery extends React.Component {
     return(
       <div className='gallery'>
         <h2>Gallery</h2>
+          <Link to="/">
+            <button id="pixelGridButton">pixelgrid</button>
+          </Link>
         <br/>
         <div>
           {
