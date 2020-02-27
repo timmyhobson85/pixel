@@ -95,7 +95,7 @@ class WebcamPage extends React.Component {
         <button id="takePhotoButton" onClick={this.showWebCam}>take a photo</button>
         <div>
         {
-          this.state.webcamShow ?
+          this.state.webcamShow &&
           <div>
             <Webcam
               className="showWebCam"
@@ -112,8 +112,6 @@ class WebcamPage extends React.Component {
             <button onClick={this.capture}>Capture photo</button>
             <br/>
           </div>
-          :
-          ''
         }
         <canvas ref="canvas" width={100} height={40} className="hidden" />
         <img ref="webcamImage" src={this.state.image} className="hidden"/>

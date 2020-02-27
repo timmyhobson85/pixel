@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash'
 import ColorPicker from './ColorPicker'
 import firebase from '../firebase.js'
 import WebcamPage from './WebcamPage'
+import SaveImage from './SaveImage'
 
 
 class PixelGrid extends React.Component {
@@ -189,6 +190,9 @@ class PixelGrid extends React.Component {
                       paddingBottom: `${100 / image[i].length}%`
                     }}
                     onClick={(e) => this.paintClick(i, j, e)}
+                    onMouseDown={() => this.setMouseDown(i, j)}
+                    onMouseOver={() => this.paintMouseOver(i, j)}
+                    onMouseUp={this.setMouseUp}
                     onMouseUp={this.setMouseUp}
                     />)
                   )
@@ -214,6 +218,10 @@ class PixelGrid extends React.Component {
 
         <br/>
         <br/>
+        <SaveImage
+          push={this.props.history.push}
+          image={this.state.image}
+        />
       </div>
     )
   }

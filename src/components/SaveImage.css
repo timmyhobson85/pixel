@@ -1,0 +1,11 @@
+.saveImage {
+  position: fixed;
+  bottom: 0;
+}
+.saveImageCanvas {
+  /* position:fixed; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+}
