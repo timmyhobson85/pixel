@@ -40,7 +40,9 @@ class ColorPicker extends React.Component {
           }
         </button>
         {
-          this.state.displayColorPicker ?
+          this.state.displayColorPicker &&
+          <div className="sketchWrapper"
+            onClick={this.showColorPicker}>
           <SketchPicker
             color={this.state.color}
             onChange={this.sendColorData}
@@ -48,8 +50,7 @@ class ColorPicker extends React.Component {
             disableAlpha={this.state.disableAlpha}
             onMouseLeave={this.showColorPicker}
           />
-          :
-          ''
+          </div>
         }
       </div>
     )

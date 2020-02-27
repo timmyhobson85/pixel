@@ -10,3 +10,19 @@
   bottom: 0;
   right:0; */
 }
+
+.sketchWrapper {
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.sketch-picker {
+  z-index: 1000;
+}

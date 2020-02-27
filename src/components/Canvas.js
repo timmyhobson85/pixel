@@ -1,5 +1,6 @@
 import React from 'react'
 import firebase from '../firebase.js'
+import './css/Canvas.css'
 
 class Canvas extends React.Component {
 
@@ -147,7 +148,7 @@ class Canvas extends React.Component {
             ref="drawCanvas"
             width={1000}
             height={600}
-            className="saveImageCanvas"
+            className="drawCanvas"
             onClick={this.clickOnCanvas}
             onMouseDown={this.mouseDown}
             onMouseMove={this.mouseMove}
