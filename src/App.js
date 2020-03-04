@@ -22,6 +22,7 @@ class App extends React.Component {
         <Route exact path="/webcam" component={WebcamPage} />
         <Route exact path="/gallery" component={Gallery} />
         <Route exact path="/Canvas" component={Canvas} />
+        <Route exact path="/PixelGrid" component={PixelGrid} />
         </Router>
       </div>
     )
