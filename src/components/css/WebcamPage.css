@@ -44,8 +44,14 @@
   box-shadow: 0 0 0 15px black;
   background-color: black;
   margin-bottom: 30px;
+  width: 70vw;
 }
 
 #webcamLoadingText {
   position: absolute;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+  }
 }
