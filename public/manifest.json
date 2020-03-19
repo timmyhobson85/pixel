@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "pixel",
+  "name": "collaborative online drawing site",
   "icons": [
     {
       "src": "favicon.ico",
